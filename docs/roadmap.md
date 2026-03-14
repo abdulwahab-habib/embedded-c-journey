@@ -1,215 +1,625 @@
-Embedded C Journey — 60-Day Roadmap
+Embedded C Journey — 60 Day Roadmap
 
-Rules
+This repository documents my structured journey to learning Embedded C and Systems Programming through daily exercises.
 
-- One folder per day: "dayXX_topic/"
-- One program per day ("src/main.c")
-- Copy the previous day’s "Makefile"
-- Build with "make", run with "make run"
-- Commit and push when finished
+The goal is to build strong foundations in:
 
-Daily Git cycle:
+- C programming
+- memory and pointers
+- bit manipulation
+- embedded system design concepts
+- firmware architecture
+- disciplined Git workflow
 
-git status
-git add .
-git commit -m "dayXX: task description"
-git push
+Each day introduces a focused concept and a small program.
 
 ---
 
-Week 1 — Core C Basics
+Repository Structure
+
+embedded-c-journey/
+│
+├── README.md
+├── .gitignore
+├── docs/
+│   ├── roadmap.md
+│   └── notes.md
+│
+├── day01_hello_embedded/
+├── day02_variables_types/
+├── day03_temp_converter/
+├── day04_battery_checker/
+...
+
+Each day follows the same internal structure:
+
+dayXX_topic/
+│
+├── Makefile
+└── src/
+    └── main.c
+
+---
+
+Development Rules
+
+Each exercise must follow these rules:
+
+- One folder per day
+- One program per day
+- Source code in "src/main.c"
+- Copy previous day's Makefile
+- Build using "make"
+- Run using "make run"
+- Commit working code only
+
+---
+
+Build Instructions
+
+Inside any day folder:
+
+make
+make run
+
+Clean build:
+
+make clean
+
+---
+
+Daily Git Workflow
+
+git status
+git add .
+git commit -m "dayXX: description of task"
+git push
+
+Never commit broken code.
+
+---
+
+60 Day Embedded C Roadmap
+
+---
+
+Week 1 — C Foundations
 
 Day 01 — Hello Embedded World
-Print a message using "printf".
 
-Day 02 — Variables
-Declare temperature, pressure, humidity variables and print them.
+Write a program that prints:
+
+Hello Embedded World
+
+Learn:
+
+- program structure
+- compilation
+- "printf"
+
+---
+
+Day 02 — Variables and Data Types
+
+Create variables representing:
+
+- temperature
+- pressure
+- humidity
+
+Print them using formatted output.
+
+Learn:
+
+- "int"
+- "float"
+- "printf"
+
+---
 
 Day 03 — Temperature Converter
-Convert Celsius → Fahrenheit.
 
-Day 04 — Battery Voltage Check
-If voltage < 3.3V print LOW BATTERY.
+Input a temperature in Celsius and convert it to Fahrenheit.
 
-Day 05 — Switch Statements
-Simulate LED states: OFF / BLINK / ON.
+Formula:
+
+F = (C × 9 / 5) + 32
+
+Learn:
+
+- arithmetic
+- floating point operations
+
+---
+
+Day 04 — Battery Voltage Checker
+
+Simulate a battery system.
+
+If voltage is less than 3.3V print:
+
+LOW BATTERY
+
+Otherwise print:
+
+BATTERY OK
+
+Learn:
+
+- "if"
+- "else"
+
+---
+
+Day 05 — Switch Statement
+
+Simulate LED modes:
+
+0 = OFF
+1 = BLINK
+2 = ON
+
+Use a "switch" statement.
+
+---
 
 Day 06 — Loops
-Print numbers 1–100.
+
+Print numbers from 1 to 100.
+
+Then print only even numbers.
+
+Learn:
+
+- "for"
+- "while"
+
+---
 
 Day 07 — Arrays
-Store 10 sensor readings and compute average.
+
+Store 10 sensor readings.
+
+Calculate and print:
+
+- sum
+- average
 
 ---
 
 Week 2 — Functions and Memory
 
 Day 08 — Functions
-Write a function that calculates an average.
 
-Day 09 — Multiple Files
-Move average function into "math_utils.c".
+Create a function:
 
-Day 10 — Pointers
-Swap two numbers using pointers.
+float average(float values[], int size);
 
-Day 11 — Pointer Iteration
-Traverse an array using pointers.
-
-Day 12 — Structs
-Create a "SensorData" struct.
-
-Day 13 — Struct Pointers
-Pass struct pointers to functions.
-
-Day 14 — Mini Project
-Sensor logger that stores and prints readings.
+Call it from "main()".
 
 ---
 
-Week 3 — Bit Manipulation (Embedded Core)
+Day 09 — Multiple Files
 
-Day 15 — Binary Numbers
-Print binary representation of an integer.
+Split code into:
 
-Day 16 — Bitwise AND / OR
+main.c
+math_utils.c
+math_utils.h
+
+Learn:
+
+- compilation units
+- headers
+
+Update Makefile accordingly.
+
+---
+
+Day 10 — Pointers
+
+Write a function that swaps two integers using pointers.
+
+---
+
+Day 11 — Pointer Arithmetic
+
+Traverse an array using pointer arithmetic instead of indexing.
+
+---
+
+Day 12 — Structs
+
+Create:
+
+struct SensorData
+{
+    float temperature;
+    float pressure;
+    float humidity;
+};
+
+---
+
+Day 13 — Struct Pointers
+
+Pass a struct pointer to a function that prints sensor data.
+
+---
+
+Day 14 — Mini Project
+
+Build a sensor logger.
+
+Features:
+
+- store readings
+- compute averages
+- print report
+
+---
+
+Week 3 — Bit Manipulation
+
+Day 15 — Binary Representation
+
+Print an integer in binary form.
+
+---
+
+Day 16 — Bitwise Operators
+
+Use:
+
+&
+|
+^
+~
+
 Simulate LED enable flags.
 
+---
+
 Day 17 — Bit Shifting
-Extract bit fields.
+
+Extract individual bits using shifts.
+
+---
 
 Day 18 — Bit Masks
+
 Check if a specific bit is set.
 
+Example:
+
+status & (1 << 3)
+
+---
+
 Day 19 — Toggle Bits
-Simulate GPIO toggling.
+
+Implement:
+
+SET_BIT
+CLEAR_BIT
+TOGGLE_BIT
+
+---
 
 Day 20 — Typedef
-Create custom integer types.
+
+Create aliases:
+
+typedef unsigned char u8;
+typedef unsigned int u32;
+
+---
 
 Day 21 — Enums
-Define robot states: IDLE, MOVE, ERROR.
+
+Create a robot state machine:
+
+IDLE
+MOVE
+STOP
+ERROR
 
 ---
 
 Week 4 — Embedded Concepts
 
-Day 22 — Volatile Variables
-Simulate hardware registers.
+Day 22 — Volatile
+
+Simulate a hardware register:
+
+volatile int status_register;
+
+---
 
 Day 23 — Memory Addresses
-Print addresses of variables.
 
-Day 24 — Memory-Mapped Registers
-Create a fake hardware register pointer.
+Print variable addresses using:
+
+&variable
+
+---
+
+Day 24 — Memory-Mapped Register Simulation
+
+Create:
+
+#define LED_REG (*(volatile int*)0x40000000)
+
+Simulate register control.
+
+---
 
 Day 25 — Register Macros
-Implement "SET_BIT", "CLEAR_BIT".
+
+Create macros:
+
+SET_BIT
+CLEAR_BIT
+READ_BIT
+
+---
 
 Day 26 — Static Variables
-Counter that persists across function calls.
+
+Create a function that counts how many times it runs.
+
+---
 
 Day 27 — Const Configuration
-Create immutable configuration structs.
+
+Create immutable configuration structures.
+
+---
 
 Day 28 — Compiler Warnings
-Compile with "-Wall -Wextra" and fix warnings.
+
+Compile with:
+
+-Wall
+-Wextra
+
+Fix all warnings.
 
 ---
 
 Week 5 — System Thinking
 
 Day 29 — Delay Loop
-Write a software delay.
 
-Day 30 — State Machine
-Robot state transitions.
+Implement a crude delay loop.
+
+---
+
+Day 30 — Finite State Machine
+
+Create a robot FSM with states:
+
+IDLE
+FORWARD
+TURN
+STOP
+
+---
 
 Day 31 — Circular Buffer
-Store streaming sensor data.
+
+Implement a fixed-size circular buffer.
+
+---
 
 Day 32 — Ring Buffer Operations
-Push and pop data.
 
-Day 33 — Button Debounce Logic
+Add push and pop operations.
 
-Day 34 — Interrupt Concept Simulation
+---
+
+Day 33 — Button Debounce Simulation
+
+Simulate button noise filtering.
+
+---
+
+Day 34 — Interrupt Concept
+
+Simulate an interrupt handler.
+
+---
 
 Day 35 — Event Queue
 
+Create an event system for robot actions.
+
 ---
 
-Week 6 — Embedded Drivers (Simulated)
+Week 6 — Driver Architecture
 
-Day 36 — Watchdog Timer Concept
+Day 36 — Watchdog Concept
+
+Simulate watchdog reset logic.
+
+---
 
 Day 37 — Software Timers
 
-Day 38 — Modular Driver Design
+Implement timer tick counters.
 
-Day 39 — Hardware Abstraction Layer (HAL)
+---
+
+Day 38 — Modular Drivers
+
+Create:
+
+gpio.c
+gpio.h
+
+---
+
+Day 39 — Hardware Abstraction Layer
+
+Create HAL wrapper functions.
+
+---
 
 Day 40 — GPIO Driver Simulation
 
+Simulate:
+
+gpio_set
+gpio_clear
+gpio_toggle
+
+---
+
 Day 41 — Configuration Structures
+
+Create configuration structs for drivers.
+
+---
 
 Day 42 — Error Codes
 
+Use return codes for error handling.
+
 ---
 
-Week 7 — Embedded Peripherals
+Week 7 — Peripheral Concepts
 
-Day 43 — UART Concept Simulation
+Day 43 — UART Simulation
 
-Day 44 — SPI Concept Simulation
+Simulate sending bytes.
+
+---
+
+Day 44 — SPI Simulation
+
+Simulate SPI transactions.
+
+---
 
 Day 45 — I2C Sensor Simulation
 
-Day 46 — ADC Reading Simulation
-
-Day 47 — PWM Motor Control Simulation
-
-Day 48 — H-Bridge Motor Logic
-
-Day 49 — Basic PID Controller
+Simulate reading sensor registers.
 
 ---
 
-Week 8 — Systems Thinking
+Day 46 — ADC Simulation
 
-Day 50 — Integer PID (Fixed-Point)
+Convert analog reading to voltage.
 
-Day 51 — Memory Constraints (No malloc)
+---
 
-Day 52 — Stack Usage Awareness
+Day 47 — PWM Simulation
+
+Simulate motor speed control.
+
+---
+
+Day 48 — H-Bridge Logic
+
+Simulate motor direction control.
+
+---
+
+Day 49 — PID Controller
+
+Implement basic PID control.
+
+---
+
+Week 8 — Systems Engineering
+
+Day 50 — Fixed-Point PID
+
+Rewrite PID without floating point.
+
+---
+
+Day 51 — Memory Constraints
+
+Remove dynamic memory usage.
+
+---
+
+Day 52 — Stack Awareness
+
+Analyze stack usage.
+
+---
 
 Day 53 — Compiler Optimization
 
-Day 54 — Modular Project Structure
+Compare:
+
+-O0
+-O2
+
+---
+
+Day 54 — Modular Firmware Structure
+
+Create folders:
+
+drivers/
+hal/
+app/
+
+---
 
 Day 55 — Motor Control Simulation
 
-Day 56 — Sensor Fusion (Simple averaging)
+Integrate PWM and H-bridge logic.
+
+---
+
+Day 56 — Sensor Fusion
+
+Combine multiple sensor inputs.
+
+---
 
 Day 57 — Logging System
 
-Day 58 — Robot Controller Simulation
+Create structured log output.
+
+---
+
+Day 58 — Robot Controller
+
+Integrate:
+
+- sensors
+- motors
+- state machine
+
+---
 
 Day 59 — System Integration
 
-Day 60 — Final Project
-Build a mini firmware simulation including:
+Combine all modules.
 
-- sensor inputs
+---
+
+Day 60 — Final Project
+
+Build a mini firmware simulation with:
+
+- sensors
 - state machine
 - motor control
 - logging
 
 ---
 
-After the 60 Days
+After The 60 Days
 
-Start working with real hardware:
+Move to real embedded hardware.
+
+Recommended order:
 
 1. STM32
 2. RP2040
@@ -220,13 +630,13 @@ Focus on:
 - GPIO
 - UART
 - timers
-- PWM
 - interrupts
+- PWM
 - ADC
 - drivers
 
-Eventually move to:
+Later topics:
 
 - RTOS
-- control loops
+- control systems
 - robotics firmware
