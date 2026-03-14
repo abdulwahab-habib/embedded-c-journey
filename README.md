@@ -1,26 +1,28 @@
-Embedded C Journey
+# Embedded C Journey
 
-A structured 60-day roadmap to learning Embedded C and systems programming through daily exercises.
+A structured **60-day roadmap to learning Embedded C and systems programming** through daily exercises.
 
-This repository tracks my progress as I build strong foundations in:
+This repository documents my progress as I build strong foundations in:
 
 - C programming
-- memory and pointers
+- pointers and memory
 - bit manipulation
-- firmware architecture
 - embedded system concepts
+- firmware architecture
 - disciplined Git workflow
 
-Each day contains a small, focused program designed to build real engineering skills.
+Each day contains a small focused program designed to build real engineering skills.
 
 ---
 
-Repository Structure
+# Repository Structure
 
+```
 embedded-c-journey/
 │
 ├── README.md
 ├── .gitignore
+│
 ├── docs/
 │   ├── roadmap.md        # full 60-day roadmap
 │   └── notes.md          # learning notes
@@ -29,62 +31,74 @@ embedded-c-journey/
 ├── day02_variables_types/
 ├── day03_temp_converter/
 ├── day04_battery_checker/
-...
+│
+└── ...
+```
 
 Each exercise follows the same layout:
 
+```
 dayXX_topic/
 │
 ├── Makefile
 └── src/
     └── main.c
+```
 
 ---
 
-Development Rules
+# Development Rules
 
 Each daily exercise follows these rules:
 
 - One folder per day
 - One program per day
-- Source file located in "src/main.c"
-- Copy the previous day's "Makefile"
-- Build using "make"
-- Run using "make run"
+- Source file located in `src/main.c`
+- Copy the previous day's `Makefile`
+- Build using `make`
+- Run using `make run`
 - Commit only working code
 
 ---
 
-Build Instructions
+# Build Instructions
 
 Navigate into any exercise folder.
 
 Example:
 
+```
 cd day01_hello_embedded
+```
 
-Compile:
+Compile the program:
 
+```
 make
+```
 
-Run:
+Run the program:
 
+```
 make run
+```
 
-Clean build artifacts:
+Clean build files:
 
+```
 make clean
+```
 
 ---
 
-Git Workflow
+# Daily Git Workflow
 
-Daily development cycle:
-
+```
 git status
 git add .
 git commit -m "dayXX: description of exercise"
 git push
+```
 
 Guidelines:
 
@@ -94,44 +108,46 @@ Guidelines:
 
 ---
 
-Learning Roadmap
+# Learning Roadmap
 
-The full 60-day learning roadmap is documented here:
+The complete roadmap is located here:
 
+```
 docs/roadmap.md
+```
 
-It includes:
+It contains the full **60-day Embedded C learning plan**, including:
 
 - daily programming exercises
-- increasing difficulty
+- progressively harder topics
 - embedded-focused concepts
 - mini projects
-- a final firmware simulation project
+- a final firmware simulation
 
 ---
 
-Goals of This Journey
+# Goals of This Journey
 
-By the end of the roadmap, I aim to understand:
+By the end of this roadmap I aim to understand:
 
-- C memory model
-- pointers and data structures
-- bit manipulation
+- the C memory model
+- pointer usage and safety
+- bitwise operations
 - firmware architecture
-- driver design
-- embedded system concepts
+- embedded driver design
+- system-level programming concepts
 
 ---
 
-Final Outcome
+# Final Outcome
 
-After completing the roadmap, the next step is working with real hardware.
+After completing this roadmap, the next step is working with **real embedded hardware**.
 
-Target platforms:
+Recommended progression:
 
-- STM32
-- RP2040
-- ESP32
+1. STM32
+2. RP2040
+3. ESP32
 
 Focus areas:
 
@@ -148,9 +164,3 @@ Eventually progressing to:
 - RTOS
 - control systems
 - robotics firmware
-
----
-
-License
-
-This repository is for educational purposes and learning documentation.
