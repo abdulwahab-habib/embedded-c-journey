@@ -1,0 +1,16 @@
+# Build outputs
+*.o
+*.out
+*.elf
+*.bin
+*.hex
+main
+
+# Build directories
+build/
+
+# Editor temp files
+*~
+*.swp
+*.swo
+
