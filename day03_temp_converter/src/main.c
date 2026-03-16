@@ -3,7 +3,7 @@
 #define KELVIN_OFFSET 273.15
 
 int main(void) {
-  printf("Temperature Converter\n\n");
+  printf("Temperature Converter Program\n\n");
 
   float celsius = 0;
   float kelvin = 0;
