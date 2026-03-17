@@ -1,4 +1,4 @@
-# Embedded C Journey — 60 # # Day Roadmap
+# Embedded C Journey — 60 Day Roadmap
 
 This repository documents my structured journey to learning Embedded C and Systems Programming through daily exercises.
 
