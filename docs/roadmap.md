@@ -86,7 +86,7 @@ Never commit broken code.
 
 ---
 
-# 60 # # Day Embedded C Roadmap
+# 60 Day Embedded C Roadmap
 
 ---
 
@@ -1123,22 +1123,4 @@ error handling
 
 ---
 
-Reality Check
 
-This is no longer beginner-friendly fluff.
-This is entry-level firmware engineer training.
-
-If you complete this properly:
-
-you’ll understand memory deeply
-
-you’ll think in systems
-
-you’ll stop writing fragile code
-
-
-
----
-
-If you want next step:
-I can convert this into strict MISRA-style constraints + review checklist per day so you build like a real firmware engineer, not a hobbyist.
