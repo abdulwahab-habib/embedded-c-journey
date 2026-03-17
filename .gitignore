@@ -1,16 +1,47 @@
-# Build outputs
+# =========================
+# Build Artifacts
+# =========================
 *.o
+*.a
+*.so
 *.out
 *.elf
 *.bin
 *.hex
+*.map
+*.d
+
+# Executables
 main
+*.exe
 
-# Build directories
+# Build Directories
 build/
+dist/
+out/
 
-# Editor temp files
+# =========================
+# Dependency / Tooling
+# =========================
+.ccls-cache/
+compile_commands.json
+
+# =========================
+# Editor / IDE Files
+# =========================
 *~
 *.swp
 *.swo
+.vscode/
+.idea/
 
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
