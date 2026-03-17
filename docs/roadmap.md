@@ -1,4 +1,4 @@
-Embedded C Journey — 60 Day Roadmap
+# Embedded C Journey — 60 # # Day Roadmap
 
 This repository documents my structured journey to learning Embedded C and Systems Programming through daily exercises.
 
@@ -15,33 +15,40 @@ Each day introduces a focused concept and a small program.
 
 ---
 
-Repository Structure
+# Repository Structure
 
+```
 embedded-c-journey/
 │
 ├── README.md
 ├── .gitignore
+│
 ├── docs/
-│   ├── roadmap.md
-│   └── notes.md
+│   ├── roadmap.md        # full 60-day roadmap
+│   └── notes.md          # learning notes
 │
 ├── day01_hello_embedded/
 ├── day02_variables_types/
 ├── day03_temp_converter/
 ├── day04_battery_checker/
-...
+│
+└── ...
+```
 
-Each day follows the same internal structure:
+Each exercise follows the same internal structure:
 
+```
 dayXX_topic/
 │
 ├── Makefile
 └── src/
     └── main.c
+```
+
 
 ---
 
-Development Rules
+# Development Rules
 
 Each exercise must follow these rules:
 
@@ -55,7 +62,7 @@ Each exercise must follow these rules:
 
 ---
 
-Build Instructions
+# Build Instructions
 
 Inside any day folder:
 
@@ -68,7 +75,7 @@ make clean
 
 ---
 
-Daily Git Workflow
+# Daily Git Workflow
 
 git status
 git add .
@@ -79,13 +86,13 @@ Never commit broken code.
 
 ---
 
-60 Day Embedded C Roadmap
+# 60 # # Day Embedded C Roadmap
 
 ---
 
 Week 1 — C Foundations
 
-Day 01 — Hello Embedded World
+# Day 01 — Hello Embedded World
 
 Write a program that prints:
 
@@ -99,7 +106,7 @@ Learn:
 
 ---
 
-Day 02 — Variables and Data Types
+# Day 02 — Variables and Data Types
 
 Create variables representing:
 
@@ -117,7 +124,7 @@ Learn:
 
 ---
 
-Day 03 — Temperature Converter
+# Day 03 — Temperature Converter
 
 Input a temperature in Celsius and convert it to Fahrenheit.
 
@@ -132,511 +139,1006 @@ Learn:
 
 ---
 
-Day 04 — Battery Voltage Checker
 
-Simulate a battery system.
+# Day 04 — Battery Voltage Checker (Deterministic + Robust)
 
-If voltage is less than 3.3V print:
+Problem
 
-LOW BATTERY
+Simulate a battery monitoring system used in embedded devices.
 
-Otherwise print:
+Requirements
 
-BATTERY OK
+Define:
 
-Learn:
+LOW_THRESHOLD = 3.3
 
-- "if"
-- "else"
+CRITICAL_THRESHOLD = 3.0
 
----
 
-Day 05 — Switch Statement
+Accept float voltage input
 
-Simulate LED modes:
+Output must be EXACTLY one of:
 
-0 = OFF
-1 = BLINK
-2 = ON
 
-Use a "switch" statement.
+CRITICAL
+LOW
+OK
 
----
+Logic
 
-Day 06 — Loops
+voltage < 3.0 → CRITICAL
 
-Print numbers from 1 to 100.
+3.0 ≤ voltage < 3.3 → LOW
 
-Then print only even numbers.
+≥ 3.3 → OK
 
-Learn:
 
-- "for"
-- "while"
+Constraints
 
----
+No magic numbers (use macros)
 
-Day 07 — Arrays
+Must handle invalid input (negative voltage → print INVALID)
 
-Store 10 sensor readings.
 
-Calculate and print:
+Expected Output Example
 
-- sum
-- average
+Input: 2.9
+Output: CRITICAL
+
 
 ---
 
-Week 2 — Functions and Memory
+# Day 05 — State-Controlled LED System (Switch + Validation)
 
-Day 08 — Functions
+Problem
 
-Create a function:
+Design a strict command decoder for an LED controller.
 
-float average(float values[], int size);
+Requirements
 
-Call it from "main()".
+Input: integer command
+
+Valid commands:
+
+0 → OFF
+
+1 → BLINK_SLOW
+
+2 → BLINK_FAST
+
+3 → ON
+
+
+Any other input → ERROR
+
+
+Constraints
+
+Must use switch
+
+Must NOT fall through cases
+
+Each case must be isolated
+
+
+Expected Output
+
+Input: 2
+Output: BLINK_FAST
+
 
 ---
 
-Day 09 — Multiple Files
+# Day 06 — Deterministic Loop Execution
 
-Split code into:
+Problem
+
+Simulate a time-stepped embedded loop.
+
+Requirements
+
+Loop from 0 → 100
+
+Print ONLY:
+
+multiples of 3 AND 5
+
+
+Count how many matches
+
+
+Output Format
+
+15
+30
+45
+...
+COUNT: X
+
+Constraint
+
+No modulo shortcuts like chained conditions without logic clarity
+
+Must separate logic into a function
+
+
+
+---
+
+# Day 07 — Sensor Sampling Buffer
+
+Problem
+
+Store sensor readings and compute statistics safely.
+
+Requirements
+
+Fixed array size = 10
+
+Hardcode values (no input)
+
+Compute:
+
+min
+
+max
+
+average
+
+
+
+Constraints
+
+No global variables
+
+No floating overflow (use correct types)
+
+
+Output
+
+MIN: X
+MAX: Y
+AVG: Z
+
+
+---
+
+Week 2 — Functions & Memory (Real Discipline)
+
+
+---
+
+# Day 08 — Strict Function Contracts
+
+Problem
+
+Design a safe averaging function.
+
+Requirements
+
+Function:
+
+float average(const float *values, int size);
+
+Constraints
+
+Must validate:
+
+NULL pointer
+
+size <= 0
+
+
+Return -1 on failure
+
+
+Output
+
+AVG: 23.45
+
+
+---
+
+# Day 09 — Multi-File Compilation (Real Build Discipline)
+
+Problem
+
+Split logic into modules.
+
+Requirements
+
+Files:
 
 main.c
-math_utils.c
-math_utils.h
 
-Learn:
+stats.c
 
-- compilation units
-- headers
+stats.h
 
-Update Makefile accordingly.
+
+Functions:
+
+average
+
+min
+
+max
+
+
+
+Constraints
+
+No duplicate code
+
+Header guards required
+
+
 
 ---
 
-Day 10 — Pointers
+# Day 10 — Pointer Integrity
 
-Write a function that swaps two integers using pointers.
+Problem
+
+Swap values using pointers safely.
+
+Requirements
+
+Function:
+
+
+int swap(int *a, int *b);
+
+Constraints
+
+Return error if NULL
+
+Do NOT crash on bad input
+
+
 
 ---
 
-Day 11 — Pointer Arithmetic
+# Day 11 — Manual Memory Traversal
 
-Traverse an array using pointer arithmetic instead of indexing.
+Problem
+
+Traverse array WITHOUT indexing.
+
+Requirements
+
+Use pointer arithmetic only
+
+Print all values
+
+
+Constraint
+
+No [] operator allowed
+
+
 
 ---
 
-Day 12 — Structs
+# Day 12 — Structured Sensor Packet
 
-Create:
+Problem
 
-struct SensorData
-{
-    float temperature;
+Represent real sensor data.
+
+Requirements
+
+struct SensorData {
+    float temp;
     float pressure;
     float humidity;
 };
 
----
+Task
 
-Day 13 — Struct Pointers
+Create array of 5 structs
 
-Pass a struct pointer to a function that prints sensor data.
+Print formatted table
 
----
 
-Day 14 — Mini Project
-
-Build a sensor logger.
-
-Features:
-
-- store readings
-- compute averages
-- print report
 
 ---
 
-Week 3 — Bit Manipulation
+# Day 13 — Pass-by-Reference Discipline
 
-Day 15 — Binary Representation
+Problem
 
-Print an integer in binary form.
+Process struct via pointer.
+
+Requirements
+
+Function:
+
+
+void print_sensor(const struct SensorData *s);
+
+Constraint
+
+Must be const correct
+
+
 
 ---
 
-Day 16 — Bitwise Operators
+# Day 14 — Mini Project: Sensor Logger v1
+
+Problem
+
+Simulate embedded data logging.
+
+Requirements
+
+Store 10 samples
+
+Compute:
+
+min/max/avg per field
+
+
+Print report
+
+
+Output Format
+
+TEMP AVG: X
+PRESSURE AVG: Y
+HUMIDITY AVG: Z
+
+
+---
+
+Week 3 — Bit Manipulation (Critical for Embedded)
+
+
+---
+
+# Day 15 — Binary Visualization Tool
+
+Problem
+
+Convert integer → binary string (32-bit).
+
+Requirements
+
+Always print 32 bits
+
+No library functions
+
+
+Output
+
+00000000000000000000000000001111
+
+
+---
+
+# Day 16 — Bitwise Control Register
+
+Problem
+
+Simulate 8-bit hardware register.
+
+Requirements
+
+Define flags:
+
+LED1 = bit 0
+
+LED2 = bit 1
+
+
+Perform:
+
+set
+
+clear
+
+toggle
+
+
+
+
+---
+
+# Day 17 — Bit Extraction Engine
+
+Problem
+
+Extract any bit position.
+
+Function
+
+int get_bit(unsigned int value, int position);
+
+Constraint
+
+Must validate position (0–31)
+
+
+
+---
+
+# Day 18 — Status Flag Decoder
+
+Problem
+
+Interpret system status byte.
+
+Requirements
+
+Bits represent:
+
+bit0 → ERROR
+
+bit1 → READY
+
+bit2 → BUSY
+
+
+Print active flags
+
+
+
+---
+
+# Day 19 — Bit Macro Library
+
+Problem
+
+Create reusable macros:
+
+SET_BIT(x, n)
+CLEAR_BIT(x, n)
+TOGGLE_BIT(x, n)
+READ_BIT(x, n)
+
+Constraint
+
+Must be side-effect safe
+
+
+
+---
+
+# Day 20 — Fixed-Width Thinking
+
+Problem
+
+Define types safely.
+
+Requirements
 
 Use:
 
-&
-|
-^
-~
+#include <stdint.h>
 
-Simulate LED enable flags.
+Replace all primitive types with fixed-width equivalents
+
 
 ---
 
-Day 17 — Bit Shifting
+# Day 21 — Finite State Machine (Strict)
 
-Extract individual bits using shifts.
+Problem
 
----
+Robot state transitions.
 
-Day 18 — Bit Masks
+States
 
-Check if a specific bit is set.
+IDLE → MOVE → STOP → ERROR
 
-Example:
+Requirement
 
-status & (1 << 3)
+No invalid transitions allowed
 
----
 
-Day 19 — Toggle Bits
-
-Implement:
-
-SET_BIT
-CLEAR_BIT
-TOGGLE_BIT
 
 ---
 
-Day 20 — Typedef
+Week 4 — Embedded Concepts (No More Toy Code)
 
-Create aliases:
-
-typedef unsigned char u8;
-typedef unsigned int u32;
 
 ---
 
-Day 21 — Enums
+# Day 22 — Volatile Behavior Simulation
 
-Create a robot state machine:
+Problem
 
-IDLE
-MOVE
-STOP
-ERROR
+Simulate changing hardware register.
 
----
+Requirement
 
-Week 4 — Embedded Concepts
+Variable updated inside loop
 
-Day 22 — Volatile
+Must use volatile
 
-Simulate a hardware register:
 
-volatile int status_register;
 
 ---
 
-Day 23 — Memory Addresses
+# Day 23 — Memory Introspection
 
-Print variable addresses using:
+Problem
 
-&variable
+Inspect memory layout.
 
----
+Requirements
 
-Day 24 — Memory-Mapped Register Simulation
+Print addresses of:
 
-Create:
+variables
 
-#define LED_REG (*(volatile int*)0x40000000)
+arrays
 
-Simulate register control.
+structs
 
----
 
-Day 25 — Register Macros
 
-Create macros:
-
-SET_BIT
-CLEAR_BIT
-READ_BIT
 
 ---
 
-Day 26 — Static Variables
+# Day 24 — Memory-Mapped IO Simulation
 
-Create a function that counts how many times it runs.
+Problem
+
+Simulate hardware register access.
+
+Requirement
+
+#define REG (*(volatile uint32_t*)0x40000000)
+
+Task
+
+Write and read values
+
+
 
 ---
 
-Day 27 — Const Configuration
+# Day 25 — Register Driver Layer
 
-Create immutable configuration structures.
+Problem
+
+Abstract register access.
+
+Functions
+
+reg_write
+
+reg_read
+
+reg_set_bit
+
+
 
 ---
 
-Day 28 — Compiler Warnings
+# Day 26 — Static State Retention
 
-Compile with:
+Problem
 
--Wall
--Wextra
+Track function calls.
 
-Fix all warnings.
+Requirement
+
+Static counter inside function
+
+
+
+---
+
+# Day 27 — Immutable Config System
+
+Problem
+
+Prevent accidental modification.
+
+Requirement
+
+Use const config struct
+
+
+
+---
+
+# Day 28 — Zero Warning Policy
+
+Problem
+
+Compile clean.
+
+Requirement
+
+-Wall -Wextra -Werror
+
+Fix EVERYTHING.
+
 
 ---
 
 Week 5 — System Thinking
 
-Day 29 — Delay Loop
-
-Implement a crude delay loop.
 
 ---
 
-Day 30 — Finite State Machine
+# Day 29 — Cycle-Accurate Delay Simulation
 
-Create a robot FSM with states:
+Problem
 
-IDLE
-FORWARD
-TURN
-STOP
+Simulate CPU delay.
 
----
+Requirement
 
-Day 31 — Circular Buffer
+Delay function using loops
 
-Implement a fixed-size circular buffer.
+Calibrate with iteration count
 
----
 
-Day 32 — Ring Buffer Operations
-
-Add push and pop operations.
 
 ---
 
-Day 33 — Button Debounce Simulation
+# Day 30 — Real FSM Engine
 
-Simulate button noise filtering.
+Problem
+
+Table-driven FSM.
+
+Requirement
+
+Use function pointers
+
+
 
 ---
 
-Day 34 — Interrupt Concept
+# Day 31 — Circular Buffer (Core Embedded Pattern)
 
-Simulate an interrupt handler.
+Problem
+
+Implement ring buffer.
+
+Requirement
+
+No overflow allowed
+
+
 
 ---
 
-Day 35 — Event Queue
+# Day 32 — Ring Buffer Robustness
 
-Create an event system for robot actions.
+Problem
+
+Add:
+
+push
+
+pop
+
+is_full
+
+is_empty
+
+
+
+---
+
+# Day 33 — Button Debounce (Realistic)
+
+Problem
+
+Simulate noisy input.
+
+Requirement
+
+Filter unstable transitions
+
+
+
+---
+
+# Day 34 — Interrupt Simulation
+
+Problem
+
+Simulate ISR behavior.
+
+Requirement
+
+Separate ISR and main loop
+
+
+
+---
+
+# Day 35 — Event Queue System
+
+Problem
+
+Queue system events.
+
+Requirement
+
+FIFO behavior
+
+
 
 ---
 
 Week 6 — Driver Architecture
 
-Day 36 — Watchdog Concept
-
-Simulate watchdog reset logic.
 
 ---
 
-Day 37 — Software Timers
+# Day 36 — Watchdog Timer Logic
 
-Implement timer tick counters.
+Problem
 
----
+Simulate system reset.
 
-Day 38 — Modular Drivers
-
-Create:
-
-gpio.c
-gpio.h
 
 ---
 
-Day 39 — Hardware Abstraction Layer
+# Day 37 — Software Timer Scheduler
 
-Create HAL wrapper functions.
+Problem
 
----
+Tick-based timers.
 
-Day 40 — GPIO Driver Simulation
-
-Simulate:
-
-gpio_set
-gpio_clear
-gpio_toggle
 
 ---
 
-Day 41 — Configuration Structures
+# Day 38 — GPIO Driver Module
 
-Create configuration structs for drivers.
+Problem
 
----
+Create driver abstraction.
 
-Day 42 — Error Codes
-
-Use return codes for error handling.
 
 ---
 
-Week 7 — Peripheral Concepts
+# Day 39 — HAL Layer
 
-Day 43 — UART Simulation
+Problem
 
-Simulate sending bytes.
+Hardware abstraction.
 
----
-
-Day 44 — SPI Simulation
-
-Simulate SPI transactions.
 
 ---
 
-Day 45 — I2C Sensor Simulation
+# Day 40 — GPIO Simulation Engine
 
-Simulate reading sensor registers.
+Problem
 
----
+Simulate pin states.
 
-Day 46 — ADC Simulation
-
-Convert analog reading to voltage.
 
 ---
 
-Day 47 — PWM Simulation
+# Day 41 — Configurable Drivers
 
-Simulate motor speed control.
+Problem
 
----
+Pass config structs.
 
-Day 48 — H-Bridge Logic
-
-Simulate motor direction control.
 
 ---
 
-Day 49 — PID Controller
+# Day 42 — Error Handling Strategy
 
-Implement basic PID control.
+Problem
 
----
+Unified error codes.
 
-Week 8 — Systems Engineering
-
-Day 50 — Fixed-Point PID
-
-Rewrite PID without floating point.
 
 ---
 
-Day 51 — Memory Constraints
+Week 7 — Peripheral Simulation
 
-Remove dynamic memory usage.
-
----
-
-Day 52 — Stack Awareness
-
-Analyze stack usage.
 
 ---
 
-Day 53 — Compiler Optimization
+# Day 43 — UART Driver
 
-Compare:
+Problem
 
--O0
--O2
+Transmit/receive buffer.
 
----
-
-Day 54 — Modular Firmware Structure
-
-Create folders:
-
-drivers/
-hal/
-app/
 
 ---
 
-Day 55 — Motor Control Simulation
+# Day 44 — SPI Engine
 
-Integrate PWM and H-bridge logic.
+Problem
 
----
+Full-duplex simulation.
 
-Day 56 — Sensor Fusion
-
-Combine multiple sensor inputs.
 
 ---
 
-Day 57 — Logging System
+# Day 45 — I2C Sensor Model
 
-Create structured log output.
+Problem
 
----
+Register-based device.
 
-Day 58 — Robot Controller
-
-Integrate:
-
-- sensors
-- motors
-- state machine
 
 ---
 
-Day 59 — System Integration
+# Day 46 — ADC Conversion Logic
 
-Combine all modules.
+Problem
 
----
+Raw → voltage conversion.
 
-Day 60 — Final Project
-
-Build a mini firmware simulation with:
-
-- sensors
-- state machine
-- motor control
-- logging
 
 ---
 
-After The 60 Days
+# Day 47 — PWM Generator
 
-Move to real embedded hardware.
+Problem
 
-Recommended order:
+Duty cycle simulation.
 
-1. STM32
-2. RP2040
-3. ESP32
 
-Focus on:
+---
 
-- GPIO
-- UART
-- timers
-- interrupts
-- PWM
-- ADC
-- drivers
+# Day 48 — Motor Driver Logic
 
-Later topics:
+Problem
 
-- RTOS
-- control systems
-- robotics firmware
+H-bridge truth table.
+
+
+---
+
+# Day 49 — PID Controller (Floating)
+
+Problem
+
+Control loop implementation.
+
+
+---
+
+Week 8 — Systems Engineering (Non-Negotiable Level)
+
+
+---
+
+# Day 50 — Fixed-Point Math (No Float)
+
+Problem
+
+Rewrite PID using integers.
+
+
+---
+
+# Day 51 — No Heap Policy
+
+Problem
+
+Remove all dynamic allocation.
+
+
+---
+
+# Day 52 — Stack Discipline
+
+Problem
+
+Analyze memory usage.
+
+
+---
+
+# Day 53 — Optimization Analysis
+
+Problem
+
+Compare assembly output.
+
+
+---
+
+# Day 54 — Firmware Architecture
+
+Problem
+
+Layered structure.
+
+
+---
+
+# Day 55 — Motor Control Integration
+
+Problem
+
+Combine PWM + driver.
+
+
+---
+
+# Day 56 — Sensor Fusion Logic
+
+Problem
+
+Combine multiple inputs.
+
+
+---
+
+# Day 57 — Logging Framework
+
+Problem
+
+Structured logs.
+
+
+---
+
+# Day 58 — Robot Controller
+
+Problem
+
+Full control loop.
+
+
+---
+
+# Day 59 — System Integration
+
+Problem
+
+All modules working together.
+
+
+---
+
+# Day 60 — Final Firmware Simulation
+
+Problem
+
+Build a complete embedded system simulation:
+
+Must Include
+
+FSM
+
+sensors
+
+motor control
+
+logging
+
+error handling
+
+
+
+---
+
+Reality Check
+
+This is no longer beginner-friendly fluff.
+This is entry-level firmware engineer training.
+
+If you complete this properly:
+
+you’ll understand memory deeply
+
+you’ll think in systems
+
+you’ll stop writing fragile code
+
+
+
+---
+
+If you want next step:
+I can convert this into strict MISRA-style constraints + review checklist per day so you build like a real firmware engineer, not a hobbyist.
