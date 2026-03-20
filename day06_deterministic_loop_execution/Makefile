@@ -1,0 +1,17 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -std=c11
+TARGET = main
+SRC = src/main.c
+
+all: $(TARGET)
+
+$(TARGET): $(SRC)
+		$(CC) $(CFLAGS) $(SRC) -o $(TARGET)
+
+run: $(TARGET)
+		./$(TARGET)
+
+clean: 
+		rm -rf $(TARGET)
+
+.PHONY: all run clean
