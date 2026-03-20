@@ -13,3 +13,5 @@ run: $(TARGET)
 
 clean:
 	rm -f $(TARGET)
+
+.PHONY: all run clean
