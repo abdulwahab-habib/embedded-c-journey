@@ -8,7 +8,7 @@ int main(void) {
   char age_buffer[32] = {0};
   char *end;
 
-  printf("What is your name? ");
+  printf("Enter board name? ");
 
   if (fgets(name_buffer, sizeof(name_buffer), stdin) == NULL) {
     return 1;
@@ -16,7 +16,16 @@ int main(void) {
 
   name_buffer[strcspn(name_buffer, "\n")] = '\0';
 
-  printf("Enter your grade: ");
+  printf("Enter serial number: ");
+
+  if (fgets(age_buffer, sizeof(age_buffer), stdin) == NULL) {
+    return 1;
+  }
+  age_buffer[strcspn(age_buffer, "\n")] = '\0';
+
+  long serial_no = strtol(age_buffer, &end, 10);
+
+  printf("Enter board grade: ");
 
   if (fgets(grade_buffer, sizeof(grade_buffer), stdin) == NULL) {
     return 1;
@@ -24,18 +33,10 @@ int main(void) {
 
   char grade = grade_buffer[0];
 
-  printf("Enter your age: ");
-
-  if (fgets(age_buffer, sizeof(age_buffer), stdin) == NULL) {
-    return 1;
-  }
-  age_buffer[strcspn(age_buffer, "\n")] = '\0';
-
-  long age = strtol(age_buffer, &end, 10);
-
-  printf("HELLO , %s\n", name_buffer);
-  printf("Grade: %c\n", grade);
-  printf("You are %ld years old\n", age);
+  printf("\n\nBoard Details↓\n");
+  printf("Board name:  %s\n", name_buffer);
+  printf("Board Grade: %c\n", grade);
+  printf("Serial NO: %ld\n", serial_no);
 
   return 0;
 }
