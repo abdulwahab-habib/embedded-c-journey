@@ -1,13 +1,22 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define KELVIN_OFFSET 273.15
 
 int main(void) {
-  printf("Temperature Converter Program\n\n");
+  char celsius_buffer[64] = {0};
+  char fahrenheit_buffer[64] = {0};
+  char kelvin_buffer[64] = {0};
+  char choice_buffer[64];
+  char *choice_end;
+  char *celsius_end;
+  char *fahr_end;
+  char *kev_end;
 
-  float celsius = 0;
-  float kelvin = 0;
-  float fahrenheit = 0;
+  double celsius = 0;
+  double fahrenheit = 0;
+  double kelvin = 0;
   int choice = 0;
 
   printf("Select an option\n");
@@ -19,12 +28,31 @@ int main(void) {
   printf("6. Kelvin -> Fahrenheit\n");
 
   printf("\nEnter choice (1-6): ");
-  scanf("%d", &choice);
+  if (fgets(choice_buffer, sizeof(choice_buffer), stdin) == NULL) {
+    return 1;
+  }
+  choice_buffer[strcspn(choice_buffer, "\n")] = '\0';
+  choice = strtol(choice_buffer, &choice_end, 10);
+
+  if (choice_end == choice_buffer || *choice_end != '\0') {
+    printf("Invalid Input\n");
+    return 1;
+  }
 
   switch (choice) {
   case 1:
     printf("Enter Celsius: ");
-    scanf("%f", &celsius);
+
+    if (fgets(celsius_buffer, sizeof(celsius_buffer), stdin) == NULL) {
+      return 1;
+    }
+    celsius_buffer[strcspn(celsius_buffer, "\n")] = '\0';
+    celsius = strtod(celsius_buffer, &celsius_end);
+
+    if (celsius_end == celsius_buffer || *celsius_end != '\0') {
+      printf("Invalid Input\n");
+      return 1;
+    }
 
     fahrenheit = (celsius * 1.8f) + 32;
 
@@ -33,7 +61,17 @@ int main(void) {
 
   case 2:
     printf("Enter Fahrenheit: ");
-    scanf("%f", &fahrenheit);
+
+    if (fgets(fahrenheit_buffer, sizeof(fahrenheit_buffer), stdin) == NULL) {
+      return 1;
+    }
+    fahrenheit_buffer[strcspn(fahrenheit_buffer, "\n")] = '\0';
+    fahrenheit = strtod(fahrenheit_buffer, &fahr_end);
+
+    if (fahr_end == fahrenheit_buffer || *fahr_end != '\0') {
+      printf("Invalid Input\n");
+      return 1;
+    }
 
     celsius = (fahrenheit - 32) * 5.0f / 9.0f;
 
@@ -42,7 +80,17 @@ int main(void) {
 
   case 3:
     printf("Enter Celsius: ");
-    scanf("%f", &celsius);
+
+    if (fgets(celsius_buffer, sizeof(celsius_buffer), stdin) == NULL) {
+      return 1;
+    }
+    celsius_buffer[strcspn(celsius_buffer, "\n")] = '\0';
+    celsius = strtod(celsius_buffer, &celsius_end);
+
+    if (celsius_end == celsius_buffer || *celsius_end != '\0') {
+      printf("Invalid Input\n");
+      return 1;
+    }
 
     kelvin = celsius + KELVIN_OFFSET;
 
@@ -51,7 +99,17 @@ int main(void) {
 
   case 4:
     printf("Enter Kelvin: ");
-    scanf("%f", &kelvin);
+
+    if (fgets(kelvin_buffer, sizeof(kelvin_buffer), stdin) == NULL) {
+      return 1;
+    }
+    kelvin_buffer[strcspn(kelvin_buffer, "\n")] = '\0';
+    kelvin = strtod(kelvin_buffer, &kev_end);
+
+    if (kev_end == kelvin_buffer || *kev_end != '\0') {
+      printf("Invalid Input\n");
+      return 1;
+    }
 
     celsius = kelvin - KELVIN_OFFSET;
 
@@ -59,8 +117,18 @@ int main(void) {
     break;
 
   case 5:
-    printf("Enter Fahrenheit: ");
-    scanf("%f", &fahrenheit);
+    printf("Enter Fahernheit: ");
+
+    if (fgets(fahrenheit_buffer, sizeof(fahrenheit_buffer), stdin) == NULL) {
+      return 1;
+    }
+    fahrenheit_buffer[strcspn(fahrenheit_buffer, "\n")] = '\0';
+    fahrenheit = strtod(fahrenheit_buffer, &fahr_end);
+
+    if (fahr_end == fahrenheit_buffer || *fahr_end != '\0') {
+      printf("Invalid Input\n");
+      return 1;
+    }
 
     kelvin = (fahrenheit - 32) * 5.0f / 9.0f + KELVIN_OFFSET;
 
@@ -69,7 +137,17 @@ int main(void) {
 
   case 6:
     printf("Enter Kelvin: ");
-    scanf("%f", &kelvin);
+
+    if (fgets(kelvin_buffer, sizeof(kelvin_buffer), stdin) == NULL) {
+      return 1;
+    }
+    kelvin_buffer[strcspn(kelvin_buffer, "\n")] = '\0';
+    kelvin = strtod(kelvin_buffer, &kev_end);
+
+    if (kev_end == kelvin_buffer || *kev_end != '\0') {
+      printf("Invalid Input\n");
+      return 1;
+    }
 
     fahrenheit = (kelvin - KELVIN_OFFSET) * 9.0f / 5.0f + 32;
 
@@ -77,7 +155,8 @@ int main(void) {
     break;
 
   default:
-    printf("Invalid choice\n");
+    printf("\nInvalid Choice\n");
+    printf("\nChoose btw (1-6)\n");
   }
 
   return 0;
